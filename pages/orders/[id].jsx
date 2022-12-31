@@ -113,7 +113,7 @@ const Order = ({ order }) => {
   );
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(
     `${process.env.NEXTAUTH_URL}/api/orders/${params.id}`
   );
