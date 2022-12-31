@@ -102,7 +102,7 @@ const Product = ({ pizza }) => {
 
 export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(
-    `http://localhost:5000/api/products/${params.id}`
+    `${process.env.NEXTAUTH_URL}/api/products/${params.id}`
   );
   return {
     props: {

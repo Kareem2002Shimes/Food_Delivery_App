@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleClick = async () => {
     try {
-      await axios.post("/api/login", {
+      await axios.post(`${process.env.NEXTAUTH_URL}/api/login`, {
         username,
         password,
       });

@@ -45,7 +45,7 @@ const Add = ({ setClose }) => {
         img: url,
       };
 
-      await axios.post("/api/products", newProduct);
+      await axios.post(`${process.env.NEXTAUTH_URL}/api/products`, newProduct);
       setClose(true);
     } catch (err) {
       console.log(err);

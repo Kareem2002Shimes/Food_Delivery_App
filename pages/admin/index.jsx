@@ -11,7 +11,7 @@ const Index = ({ orders, products }) => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        "http://localhost:5000/api/products/" + id
+        `${process.env.NEXTAUTH_URL}/api/products/` + id
       );
       setPizzaList(pizzaList.filter((pizza) => pizza._id !== id));
     } catch (err) {
@@ -24,9 +24,12 @@ const Index = ({ orders, products }) => {
     const currentStatus = item.status;
 
     try {
-      const res = await axios.put("/api/orders/" + id, {
-        status: currentStatus + 1,
-      });
+      const res = await axios.put(
+        `${process.env.NEXTAUTH_URL}/api/orders/` + id,
+        {
+          status: currentStatus + 1,
+        }
+      );
       setOrderList([
         res.data,
         ...orderList.filter((order) => order._id !== id),
@@ -128,8 +131,10 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  const productRes = await axios.get("http://localhost:5000/api/products");
-  const orderRes = await axios.get("http://localhost:5000/api/orders");
+  const productRes = await axios.get(
+    `${process.env.NEXTAUTH_URL}/api/products`
+  );
+  const orderRes = await axios.get(`${process.env.NEXTAUTH_URL}/api/orders`);
 
   return {
     props: {
