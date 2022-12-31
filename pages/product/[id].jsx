@@ -100,7 +100,7 @@ const Product = ({ pizza }) => {
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const res = await axios.get(
     `${process.env.NEXTAUTH_URL}/api/products/${params.id}`
   );
