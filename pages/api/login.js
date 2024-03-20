@@ -14,14 +14,17 @@ const handler = async (req, res) => {
       username === process.env.ADMIN_USERNAME &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      // res.setHeader(
-      //   'Set-Cookie',
-      //   cookie.serialize('token', process.env.TOKEN, {
-      //     maxAge: 60 * 60,
-      //     sameSite: 'strict',
-      //     path: '/',
-      //   })
-      // );
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('token', process.env.TOKEN, {
+          maxAge: 60 * 60,
+          sameSite: 'strict',
+          path: '/',
+        })
+      );
       res.status(200).json({accessToken:process.env.TOKEN});
     } else {
       res.status(400).json('Wrong Credentials!');
