@@ -22,7 +22,7 @@ const handler = async (req, res) => {
       //     path: '/',
       //   })
       // );
-      res.status(200).json({accessToken:process.env.TOKEN);
+      res.status(200).json({accessToken:process.env.TOKEN});
     } else {
       res.status(400).json('Wrong Credentials!');
     }
