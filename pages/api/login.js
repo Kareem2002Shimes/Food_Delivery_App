@@ -14,6 +14,9 @@ const handler = async (req, res) => {
       username === process.env.ADMIN_USERNAME &&
       password === process.env.ADMIN_PASSWORD
     ) {
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
+      res.setHeader('Access-Control-Allow-Headers', '*'); // Allow all headers
       res.setHeader(
         'Set-Cookie',
         cookie.serialize('token', process.env.TOKEN, {

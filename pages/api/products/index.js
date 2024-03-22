@@ -3,9 +3,10 @@ import Product from '../../../models/Product';
 import NextCors from 'nextjs-cors';
 
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, cookies } = req;
 
-  const token = req.cookies.token;
+  const token = cookies.token;
+
   dbConnect();
 
   await NextCors(req, res, {
@@ -17,7 +18,9 @@ export default async function handler(req, res) {
   if (method === 'GET') {
     try {
       const products = await Product.find();
-
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
+      res.setHeader('Access-Control-Allow-Headers', '*'); // Allow all headers
       res.status(200).json(products);
     } catch (err) {
       res.status(500).json(err);
@@ -30,6 +33,9 @@ export default async function handler(req, res) {
     }
     try {
       const product = await Product.create(req.body);
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
+      res.setHeader('Access-Control-Allow-Headers', '*'); // Allow all headers
       res.status(201).json(product);
     } catch (err) {
       res.status(500).json(err);
