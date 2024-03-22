@@ -3,10 +3,9 @@ import Product from '../../../models/Product';
 import NextCors from 'nextjs-cors';
 
 export default async function handler(req, res) {
-  const { method, cookies } = req;
+  const { method } = req;
 
-  const token = cookies.token;
-
+  const token = req.cookies.token;
   dbConnect();
 
   await NextCors(req, res, {
