@@ -18,11 +18,11 @@ const handler = async (req, res) => {
         'Set-Cookie',
         cookie.serialize('token', process.env.TOKEN, {
           maxAge: 60 * 60,
-          sameSite: 'none',
+          sameSite: 'strict',
           path: '/',
         })
       );
-      res.status(200).json('successful');
+      res.status(200).json({ token: process.env.TOKEN });
     } else {
       res.status(400).json('Wrong Credentials!');
     }
