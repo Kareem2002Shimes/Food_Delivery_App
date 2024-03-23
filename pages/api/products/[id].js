@@ -1,6 +1,6 @@
 import dbConnect from '../../../util/mongo';
 import Product from '../../../models/Product';
-import cors from '../../../util/cors';
+import NextCors from 'nextjs-cors';
 
 export default async function handler(req, res) {
   const {
@@ -11,7 +11,12 @@ export default async function handler(req, res) {
   const token = cookies.token;
 
   dbConnect();
-  await cors();
+  await NextCors(req, res, {
+    // Options
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
 
   if (method === 'GET') {
     try {
