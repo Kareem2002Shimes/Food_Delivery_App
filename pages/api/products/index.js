@@ -1,6 +1,6 @@
 import dbConnect from '../../../util/mongo';
 import Product from '../../../models/Product';
-import NextCors from 'nextjs-cors';
+import cors from '../../../util/cors';
 
 export default async function handler(req, res) {
   const { method, cookies } = req;
@@ -8,19 +8,11 @@ export default async function handler(req, res) {
   const token = cookies.token;
 
   dbConnect();
-
-  await NextCors(req, res, {
-    // Options
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    origin: '*',
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
+  await cors();
   if (method === 'GET') {
     try {
       const products = await Product.find();
-      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
-      res.setHeader('Access-Control-Allow-Headers', '*'); // Allow all headers
+
       res.status(200).json(products);
     } catch (err) {
       res.status(500).json(err);
@@ -33,9 +25,7 @@ export default async function handler(req, res) {
     }
     try {
       const product = await Product.create(req.body);
-      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
-      res.setHeader('Access-Control-Allow-Headers', '*'); // Allow all headers
+
       res.status(201).json(product);
     } catch (err) {
       res.status(500).json(err);

@@ -1,17 +1,12 @@
 import dbConnect from '../../../util/mongo';
 import Order from '../../../models/Order';
-import NextCors from 'nextjs-cors';
+import cors from '../../../util/cors';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   await dbConnect();
-  await NextCors(req, res, {
-    // Options
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    origin: '*',
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
+  await cors();
 
   if (method === 'GET') {
     try {
