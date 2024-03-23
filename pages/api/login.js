@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import cors from '../../util/cors';
+import NextCors from 'nextjs-cors';
 
 const handler = async (req, res) => {
   await NextCors(req, res, {
