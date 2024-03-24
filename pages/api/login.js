@@ -8,6 +8,7 @@ const handler = async (req, res) => {
     origin: 'http://localhost:3000',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
+
   if (req.method === 'POST') {
     const { username, password } = req.body;
     if (
